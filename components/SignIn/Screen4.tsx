@@ -5,9 +5,16 @@ interface Screen4Props {
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	onSubmit: () => void;
 	onBack: () => void;
+	error?: { [key: string]: { message?: string } };
 }
 
-const Screen4 = ({ password, onChange, onSubmit, onBack }: Screen4Props) => {
+const Screen4 = ({
+	password,
+	onChange,
+	onSubmit,
+	onBack,
+	error,
+}: Screen4Props) => {
 	return (
 		<div className='border-2 border-gray-500 shadow-2xl rounded-lg p-4 flex flex-col justify-between items-start gap-4 h-52 w-fit'>
 			<button onClick={onBack} className='text-blue-500 cursor-pointer'>
@@ -24,6 +31,12 @@ const Screen4 = ({ password, onChange, onSubmit, onBack }: Screen4Props) => {
 					className='border-2 border-gray-500'
 				/>
 			</label>
+			{error &&
+				Object.keys(error).map((field, index) => (
+					<p key={index} className='text-red-500 text-sm'>
+						{error[field]?.message}
+					</p>
+				))}
 			<button
 				onClick={onSubmit}
 				disabled={!password}
